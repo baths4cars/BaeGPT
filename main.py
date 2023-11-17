@@ -82,12 +82,6 @@ if st.session_state.button_pressed:
     run = wait_on_run(run,thread)
 
     st.write("Here is our advice: ", pretty_print(get_response(thread)))
-    
-else:
-    # Get a random suggested question from a file.
-    if not st.session_state.button_pressed:
-        suggestion = random_line_from_file('suggested_questions.txt')
-
 
 
 st.write("2023 Copyright Joseph Bae 배홍철. Made for my sons and 사랑하는 조카들 :smile:")
