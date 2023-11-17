@@ -6,7 +6,7 @@ from openai import OpenAI
 
 # Helpful functions
 def button_pressed()->None:
-    st.session_state.button_clicked = True
+    st.session_state.button_pressed = True
 
 def random_line_from_file(file_path):
     try:
