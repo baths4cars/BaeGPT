@@ -57,9 +57,6 @@ assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
 # Initialize session state for button press tracking if not already done
 if 'button_pressed' not in st.session_state:
     st.session_state.button_pressed = False
-
-# Get a random suggested question from a file.
-if not st.session_state.button_pressed:
     suggestion = random_line_from_file('suggested_questions.txt')
 
 # Take User Input
@@ -85,6 +82,11 @@ if st.session_state.button_pressed:
     run = wait_on_run(run,thread)
 
     st.write("Here is our advice: ", pretty_print(get_response(thread)))
+    
+else:
+    # Get a random suggested question from a file.
+    if not st.session_state.button_pressed:
+        suggestion = random_line_from_file('suggested_questions.txt')
 
 
 
