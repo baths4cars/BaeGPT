@@ -7,6 +7,7 @@ from openai import OpenAI
 # Helpful functions
 def button_pressed()->None:
     st.session_state.button_pressed = True
+    suggestion = user_message
 
 def random_line_from_file(file_path):
     try:
@@ -67,6 +68,7 @@ user_message = st.text_input(":speech_balloon: Your question/질문해 보세요
 st.button("Advise Me", on_click = button_pressed)
 
 if st.session_state.button_pressed:
+    
     # Create a new Thread
     thread = client.beta.threads.create()
     
