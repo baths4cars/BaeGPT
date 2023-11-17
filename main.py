@@ -54,8 +54,9 @@ if 'button_pressed' not in st.session_state:
     st.session_state.button_pressed = False
     
     suggestion = random_line_from_file('suggested_questions.txt')
-    
-suggestion = 'hot cake'
+
+if not st.session_state.button_pressed:
+    suggestion = 'hot cake'
 
 # Take User Input
 user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", suggestion)
