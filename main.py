@@ -56,7 +56,7 @@ def random_line_from_file(file_path):
     except Exception as e:
         return f"Error: {str(e)}"
 
-if not st.session_state['button_pressed']:
+if not st.session_state.button_pressed:
     suggestion = random_line_from_file('suggested_questions.txt')
 
 # Take User Input
@@ -66,7 +66,7 @@ user_message = st.text_input(":speech_balloon: Your question/질문해 보세요
 thread = client.beta.threads.create()
 
 if st.button("Advise Me"):
-    st.session_state['button_pressed'] = True
+    st.session_state.button_pressed = True
     message = client.beta.threads.messages.create(
         thread_id=thread.id,
         role="user",
