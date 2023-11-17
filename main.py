@@ -44,6 +44,9 @@ assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
 if 'button_pressed' not in st.session_state:
     st.session_state['button_pressed'] = False
 
+def button_pressed()->None:
+    st.session_state.button_clicked = True
+
 # Get a random suggested question from a file.
 def random_line_from_file(file_path):
     try:
@@ -62,13 +65,12 @@ if not st.session_state.button_pressed:
 # Take User Input
 user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", suggestion)
 
-button_pressed = st.button("Advise Me", on_click = None)
+st.button("Advise Me", on_click = button_pressed)
 
 # Create a new Thread
 thread = client.beta.threads.create()
 
-if button_pressed:
-    st.session_state.button_pressed = True
+if st.session_state.button_pressed:
     message = client.beta.threads.messages.create(
         thread_id=thread.id,
         role="user",
