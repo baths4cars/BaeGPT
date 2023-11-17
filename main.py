@@ -48,28 +48,28 @@ with logo:
 #Authenticate
 open_ai_key = os.environ["OPEN_AI_KEY"]
 
-client = OpenAI(api_key = open_ai_key)
-
-#Retrieve Assistant: RiskGPT
-assistant_id = 'asst_ItjOa3iOaYSOoUKCAvy0cGkc'
-assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
-
 # Initialize session state for button press tracking if not already done
 if 'button_pressed' not in st.session_state:
     st.session_state.button_pressed = False
+    client = OpenAI(api_key = open_ai_key)
+
+    #Retrieve Assistant: RiskGPT
+    assistant_id = 'asst_ItjOa3iOaYSOoUKCAvy0cGkc'
+    assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
     
-if not st.session_state.button_pressed:
-    suggestion = random_line_from_file('suggested_questions.txt')
+    if not st.session_state.button_pressed:
+        suggestion = random_line_from_file('suggested_questions.txt')
+    
 
 # Take User Input
 user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", suggestion)
 
 st.button("Advise Me", on_click = button_pressed)
 
-# Create a new Thread
-thread = client.beta.threads.create()
-
 if st.session_state.button_pressed:
+    # Create a new Thread
+    thread = client.beta.threads.create()
+    
     message = client.beta.threads.messages.create(
         thread_id=thread.id,
         role="user",
