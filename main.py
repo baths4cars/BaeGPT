@@ -24,8 +24,9 @@ def pretty_print(messages):
 # Streamlit interface
 title, logo = st.columns([3,1])
 with title:
-    st.title(':100: BaeGPT')
-    st.header(':rocket: 인생의 궁금한 뭐든지 물어보세요! 영어, 한글 모두 가능해요')
+    st.title(':100: BaeGPT: Ask away!')
+    st.header(':rocket: 인생의 궁금한 뭐든지 물어보세요!') 
+    st.write('Use English and/or Korean. 영어, 한글 모두 가능해요.')
 with logo:
     st.image('img/YGB20231116C.png')
 
@@ -59,3 +60,7 @@ if st.button("Advise Me"):
     run = wait_on_run(run,thread)
 
     st.write("Here is our advice: ", pretty_print(get_response(thread)))
+
+
+
+st.write("2023 Copyright Joseph Bae 배홍철")
