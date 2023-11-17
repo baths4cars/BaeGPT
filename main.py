@@ -78,4 +78,4 @@ if st.button("Advise Me"):
 
 
 
-st.write(":smile: 2023 Copyright Joseph Bae 배홍철")
+st.write("2023 Copyright Joseph Bae 배홍철. Made for my sons and 사랑하는 조카들 :smile:")
