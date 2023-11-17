@@ -58,8 +58,7 @@ if 'button_pressed' not in st.session_state:
     assistant_id = 'asst_ItjOa3iOaYSOoUKCAvy0cGkc'
     assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
     
-    if not st.session_state.button_pressed:
-        suggestion = random_line_from_file('suggested_questions.txt')
+    suggestion = random_line_from_file('suggested_questions.txt')
     
 
 # Take User Input
