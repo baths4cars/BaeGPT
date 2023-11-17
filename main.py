@@ -1,5 +1,6 @@
 import os
 import time
+import random
 import streamlit as st
 from openai import OpenAI
 
@@ -39,8 +40,22 @@ client = OpenAI(api_key = open_ai_key)
 assistant_id = 'asst_ItjOa3iOaYSOoUKCAvy0cGkc'
 assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
 
+# Get a random suggested question from a file.
+def random_line_from_file(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+            if lines:
+                return random.choice(lines).strip()
+            else:
+                return "The file is empty."
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+suggestion = random_line_from_file('suggested_questions.txt')
+
 # Take User Input
-user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", "")
+user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", suggestion)
 
 # Create a new Thread
 thread = client.beta.threads.create()
