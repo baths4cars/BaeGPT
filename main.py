@@ -50,15 +50,32 @@ with logo:
 open_ai_key = os.environ["OPEN_AI_KEY"]
 
 # Initialize session state for button press tracking if not already done
-if 'button_pressed' not in st.session_state:
-    st.session_state.button_pressed = False
-    
-    suggestion = random_line_from_file('suggested_questions.txt')
+for button_status in ['button_pressed','suggest_presssed','suggest_k_pressed']:
+    if button_status not in st.session_state:
+        st.session_state[button_status] = False
 
 # Take User Input
 user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", "")
 
-st.button("Advise Me", on_click = button_pressed)
+advise, suggest, suggest_k,rest = st.columns([2,2,2,4])
+with advise:
+    st.button("Advise Me 답변 주세요", on_click = button_pressed)
+with suggest:
+    st.button("Suggest a question", on_click = button_pressed)
+with suggest_k:
+    st.button("질문 하나 권해 주세요", on_click = button_pressed)
+
+if st.session_state.suggest_pressed:
+    suggestion = random_line_from_file('suggested_questions.txt')
+    st.write(suggestion)
+    st.session_state.suggestion = suggestion
+    st.session_state.suggest_pressed = False
+
+if st.session_state.suggest_pressed_k:
+    suggestion = random_line_from_file('suggested_questions_k.txt')
+    st.write(suggestion) 
+    st.session_state.suggestion = suggestion
+    st.session_state.suggest_pressed = False
 
 if st.session_state.button_pressed:
     client = OpenAI(api_key = open_ai_key)
@@ -69,6 +86,10 @@ if st.session_state.button_pressed:
     
     # Create a new Thread
     thread = client.beta.threads.create()
+    
+    if 'session' in st.session_state:
+        user_message = st.session_state.suggestion
+        st.write(f'You asked: {st.session_state.suggestion}')
     
     message = client.beta.threads.messages.create(
         thread_id=thread.id,
