@@ -55,16 +55,12 @@ if 'button_pressed' not in st.session_state:
     
     suggestion = random_line_from_file('suggested_questions.txt')
 
-if not st.session_state.button_pressed:
-    suggestion = 'hot cake'
-
 # Take User Input
-user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", suggestion)
+user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", "")
 
 st.button("Advise Me", on_click = button_pressed)
 
 if st.session_state.button_pressed:
-    suggestion = user_message
     client = OpenAI(api_key = open_ai_key)
     
     #Retrieve Assistant: RiskGPT
