@@ -51,7 +51,6 @@ open_ai_key = os.environ["OPEN_AI_KEY"]
 
 # Initialize session state for button press tracking if not already done
 if 'button_pressed' not in st.session_state:
-    st.write('loading state..')
     st.session_state.button_pressed = False
     client = OpenAI(api_key = open_ai_key)
 
@@ -61,6 +60,7 @@ if 'button_pressed' not in st.session_state:
     
     suggestion = random_line_from_file('suggested_questions.txt')
     
+suggestion = 'hot cake'
 
 # Take User Input
 user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", suggestion)
