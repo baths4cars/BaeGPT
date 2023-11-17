@@ -64,6 +64,7 @@ user_message = st.text_input(":speech_balloon: Your question/질문해 보세요
 st.button("Advise Me", on_click = button_pressed)
 
 if st.session_state.button_pressed:
+    suggestion = user_message
     client = OpenAI(api_key = open_ai_key)
     
     #Retrieve Assistant: RiskGPT
