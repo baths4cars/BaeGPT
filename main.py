@@ -26,7 +26,7 @@ title, logo = st.columns([3,1])
 with title:
     st.title(':100: BaeGPT: Ask away!')
     st.header(':rocket: 인생의 궁금한 뭐든지 물어보세요!') 
-    st.write('Use English and/or Korean. 영어, 한글 모두 가능해요.')
+    st.write(':white_check_mark: Use English and/or Korean. 영어, 한글 모두 가능해요. :uk: :kr: ')
 with logo:
     st.image('img/YGB20231116C.png')
 
@@ -40,7 +40,7 @@ assistant_id = 'asst_ItjOa3iOaYSOoUKCAvy0cGkc'
 assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
 
 # Take User Input
-user_message = st.text_input("Your question/질문해 보세요:", "")
+user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", "")
 
 # Create a new Thread
 thread = client.beta.threads.create()
@@ -63,4 +63,4 @@ if st.button("Advise Me"):
 
 
 
-st.write("2023 Copyright Joseph Bae 배홍철")
+st.write(":smile: 2023 Copyright Joseph Bae 배홍철")
