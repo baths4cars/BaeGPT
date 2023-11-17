@@ -5,6 +5,20 @@ import streamlit as st
 from openai import OpenAI
 
 # Helpful functions
+def button_pressed()->None:
+    st.session_state.button_clicked = True
+
+def random_line_from_file(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+            if lines:
+                return random.choice(lines).strip()
+            else:
+                return "The file is empty."
+    except Exception as e:
+        return f"Error: {str(e)}"
+
 def wait_on_run(run, thread):
     while run.status == "queued" or run.status == "in_progress":
         run = client.beta.threads.runs.retrieve(
@@ -42,23 +56,9 @@ assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
 
 # Initialize session state for button press tracking if not already done
 if 'button_pressed' not in st.session_state:
-    st.session_state['button_pressed'] = False
-
-def button_pressed()->None:
-    st.session_state.button_clicked = True
+    st.session_state.button_pressed = False
 
 # Get a random suggested question from a file.
-def random_line_from_file(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            lines = file.readlines()
-            if lines:
-                return random.choice(lines).strip()
-            else:
-                return "The file is empty."
-    except Exception as e:
-        return f"Error: {str(e)}"
-
 if not st.session_state.button_pressed:
     suggestion = random_line_from_file('suggested_questions.txt')
 
