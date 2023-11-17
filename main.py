@@ -51,6 +51,7 @@ open_ai_key = os.environ["OPEN_AI_KEY"]
 
 # Initialize session state for button press tracking if not already done
 if 'button_pressed' not in st.session_state:
+    st.write('loading state..')
     st.session_state.button_pressed = False
     client = OpenAI(api_key = open_ai_key)
 
