@@ -40,6 +40,10 @@ client = OpenAI(api_key = open_ai_key)
 assistant_id = 'asst_ItjOa3iOaYSOoUKCAvy0cGkc'
 assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
 
+# Initialize session state for button press tracking if not already done
+if 'button_pressed' not in st.session_state:
+    st.session_state['button_pressed'] = False
+
 # Get a random suggested question from a file.
 def random_line_from_file(file_path):
     try:
@@ -52,7 +56,8 @@ def random_line_from_file(file_path):
     except Exception as e:
         return f"Error: {str(e)}"
 
-suggestion = random_line_from_file('suggested_questions.txt')
+if not st.session_state['button_pressed']:
+    suggestion = random_line_from_file('suggested_questions.txt')
 
 # Take User Input
 user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", suggestion)
@@ -61,6 +66,7 @@ user_message = st.text_input(":speech_balloon: Your question/질문해 보세요
 thread = client.beta.threads.create()
 
 if st.button("Advise Me"):
+    st.session_state['button_pressed'] = True
     message = client.beta.threads.messages.create(
         thread_id=thread.id,
         role="user",
