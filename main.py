@@ -57,27 +57,11 @@ for button_status in ['button_pressed','suggest_presssed','suggest_k_pressed']:
 # Take User Input
 user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", "")
 
-advise, suggest, suggest_k,rest = st.columns([2,2,2,4])
-with advise:
-    st.button("Advise Me 답변 주세요", on_click = button_pressed)
-with suggest:
-    st.button("Suggest a question", on_click = button_pressed)
-with suggest_k:
-    st.button("질문 하나 권해 주세요", on_click = button_pressed)
-
-if st.session_state.suggest_pressed:
-    suggestion = random_line_from_file('suggested_questions.txt')
-    st.write(suggestion)
-    st.session_state.suggestion = suggestion
-    st.session_state.suggest_pressed = False
-
-if st.session_state.suggest_pressed_k:
-    suggestion = random_line_from_file('suggested_questions_k.txt')
-    st.write(suggestion) 
-    st.session_state.suggestion = suggestion
-    st.session_state.suggest_pressed = False
+st.button("Advise Me 답변 주세요", on_click = button_pressed)
 
 if st.session_state.button_pressed:
+    st.write("질문에 답하고 있습니다.. (15-20초 정도 걸릴 수 있어요)")
+    st.write("Please be patient as I work on an answer.. (15-20 seconds)")
     client = OpenAI(api_key = open_ai_key)
     
     #Retrieve Assistant: RiskGPT
