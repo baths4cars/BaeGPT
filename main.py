@@ -46,8 +46,9 @@ with title:
 with logo:
     st.image('img/YGB20231116C.png')
 
-#Authenticate
+#Load Environment Variables
 open_ai_key = os.environ["OPEN_AI_KEY"]
+assistant_id = os.environ["ASSISTANT_ID"]
 
 # Initialize session state for button press tracking if not already done
 for button_status in ['button_pressed','suggest_presssed','suggest_k_pressed']:
@@ -65,7 +66,6 @@ if st.session_state.button_pressed:
     client = OpenAI(api_key = open_ai_key)
     
     #Retrieve Assistant: RiskGPT
-    assistant_id = 'asst_ItjOa3iOaYSOoUKCAvy0cGkc'
     assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
     
     # Create a new Thread
