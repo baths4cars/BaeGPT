@@ -91,4 +91,5 @@ if st.session_state.button_pressed:
     st.write("Here is our advice: ", pretty_print(get_response(thread)))
 
 
-st.write("2023 Copyright Joseph Bae 배홍철. Made for my sons and 사랑하는 조카들 :smile:")
+st.write("A custom GPT built on OpenAI’s ChatGPT 4. :brain:")
+st.write("All fine-tuning and UI elements by Joseph Bae 배홍철 © 2023. Made for my sons and 사랑하는 조카들 :smile:")
