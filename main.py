@@ -3,6 +3,7 @@ import time
 import random
 import streamlit as st
 from openai import OpenAI
+from buymecoffee import button
 
 # Helpful functions
 def button_pressed()->None:
@@ -36,8 +37,14 @@ def pretty_print(messages):
     for m in messages:
         if m.role == "assistant":
           return f"{m.content[0].text.value}"
+      
+def add_vertical_space(num_lines: int = 1):
+    """Add vertical space to your Streamlit app."""
+    for _ in range(num_lines):
+        st.write("")
 
 # Streamlit interface
+spacing_at_bottom = 15
 title, logo = st.columns([3,1])
 with title:
     st.title(':100: BaeGPT: Ask away!')
@@ -87,9 +94,14 @@ if st.session_state.button_pressed:
     )
 
     run = wait_on_run(run,thread)
+    
+    spacing_at_bottom = 5
 
     st.write("Here is our advice: ", pretty_print(get_response(thread)))
 
+add_vertical_space(spacing_at_bottom)
 
 st.write("A custom GPT built on OpenAI’s ChatGPT 4. :brain:")
 st.write("All fine-tuning and UI elements by Joseph Bae 배홍철 © 2023. Made for my sons and 사랑하는 조카들 :smile:")
+
+button(username="baejoseph", floating=False, width=221)
