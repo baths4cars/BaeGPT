@@ -48,8 +48,10 @@ spacing_at_bottom = 15
 title, logo = st.columns([3,1])
 with title:
     st.title(':100: BaeGPT: Ask away!')
+    st.write(':open_book: “Your word is a lamp to my feet and a light to my path.” —Psalm 119:105')
+    st.write(':diya_lamp: “주의 말씀은 내 발에 등이요 내 길에 빛이니이다.” —시편 119편 105절 말씀')
     st.header(':rocket: 인생의 궁금한 뭐든지 물어보세요!') 
-    st.write(':white_check_mark: Use English and/or Korean. 영어, 한글 모두 가능해요. :uk: :kr: ')
+    st.write(':white_check_mark: Use English and/or Korean. 영어, 한글 모두 가능해요. :uk: :kr:')
 with logo:
     st.image('img/YGB20231116C.png')
 
