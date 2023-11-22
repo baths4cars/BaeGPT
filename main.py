@@ -2,6 +2,7 @@ import os
 import time
 import random
 import streamlit as st
+from langdetect import detect, DetectorFactory
 from openai import OpenAI
 from buymecoffee import button
 
@@ -66,12 +67,18 @@ for button_status in ['button_pressed','suggest_presssed','suggest_k_pressed']:
 
 # Take User Input
 user_message = st.text_input(":speech_balloon: Your question/질문해 보세요:", "")
+DetectorFactory.seed = 0
 
 st.button("Advise Me 답변 주세요", on_click = button_pressed)
 
 if st.session_state.button_pressed:
-    st.write("질문에 답하고 있습니다.. (15-20초 정도 걸릴 수 있어요)")
-    st.write("Please be patient as I work on an answer.. (15-20 seconds)")
+    message_lang = detect(user_message)
+    if message_lang == "ko":
+        st.write("질문에 답하고 있습니다.. (15-20초 정도 걸릴 수 있어요)")
+        reply_head = "답변: "
+    else:
+        st.write("Please be patient as we work on an answer.. (15-20 seconds)")
+        reply_head = "Here is our advice: "
     client = OpenAI(api_key = open_ai_key)
     
     #Retrieve Assistant: RiskGPT
@@ -99,7 +106,7 @@ if st.session_state.button_pressed:
     
     spacing_at_bottom = 5
 
-    st.write("Here is our advice: ", pretty_print(get_response(thread)))
+    st.write(reply_head, pretty_print(get_response(thread)))
 
 add_vertical_space(spacing_at_bottom)
 
