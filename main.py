@@ -112,6 +112,6 @@ if st.session_state.button_pressed:
 add_vertical_space(spacing_at_bottom)
 
 st.write("A custom GPT built on OpenAI’s GPT-4 Turbo. :brain:")
-st.write("All fine-tuning and UI elements by Joseph Bae 배홍철 © 2023. Made for my sons and 사랑하는 조카들 :smile:")
+st.write("All fine-tuning by Joseph Bae 배홍철 © 2023. Made for my sons and 사랑하는 조카들, 예닮이 & 예일이 :smile:")
 
 button(username="baejoseph", floating=False, width=221)
