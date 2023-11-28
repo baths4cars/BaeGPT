@@ -75,35 +75,46 @@ st.button("Advise Me 답변 주세요", on_click = button_pressed)
 if st.session_state.button_pressed:
     message_lang = detect(user_message)
     if message_lang == "ko":
-        st.write("질문에 답하고 있습니다.. (15-20초 정도 걸릴 수 있어요)")
+        update_head = "질문에 답하고 있습니다.. (15-20초 정도 걸릴 수 있어요)"
+        update1 = "API를 통해 조수를 가동 중..."
+        update2 = "새로운 스레드 생성 중..."
+        update3 = "답변을 가져오는 중..."
         reply_head = "답변: "
     else:
-        st.write("Please be patient as we work on an answer.. (15-20 seconds)")
+        update_head = "Please be patient as we work on an answer.. (15-20 seconds)"
+        update1 = "Parting the Digital Red Sea..."
+        update2 = "Weaving the Robe of Many Questions..."
+        update3 = "Seeking wisdom from the sixty six books..."
         reply_head = "Here is our advice: "
-    client = OpenAI(api_key = open_ai_key)
-    
-    #Retrieve Assistant: RiskGPT
-    assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
-    
-    # Create a new Thread
-    thread = client.beta.threads.create()
-    
-    if 'session' in st.session_state:
-        user_message = st.session_state.suggestion
-        st.write(f'You asked: {st.session_state.suggestion}')
-    
-    message = client.beta.threads.messages.create(
-        thread_id=thread.id,
-        role="user",
-        content=user_message
-    )
 
-    run = client.beta.threads.runs.create(
-        thread_id=thread.id,
-        assistant_id=assistant.id
-    )
+    with st.status(update_head, expanded=True) as status:
+        client = OpenAI(api_key = open_ai_key)
+        st.write(update1) 
 
-    run = wait_on_run(run,thread)
+        #Retrieve Assistant: BaeGPT
+        assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
+    
+        st.write(update2)
+        # Create a new Thread
+        thread = client.beta.threads.create()
+    
+        message = client.beta.threads.messages.create(
+            thread_id=thread.id,
+            role="user",
+            content=user_message
+        )
+
+        run = client.beta.threads.runs.create(
+            thread_id=thread.id,
+            assistant_id=assistant.id
+        )
+
+        st.write(update3)
+
+        # Fetch an answer
+        run = wait_on_run(run,thread)
+
+        status.update(label="Complete!", state="complete", expanded=False)
     
     spacing_at_bottom = 5
 
