@@ -40,6 +40,7 @@ def button(
                     position: fixed;
                     bottom: 60px;
                     right: 40px;
+                    background: transparent;
                 }}
             </style>
             """,
