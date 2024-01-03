@@ -5,6 +5,7 @@ import streamlit as st
 from langdetect import detect, DetectorFactory
 from openai import OpenAI
 from buymecoffee import button
+from google_sheets_save import save_to_google_sheets
 
 # Helpful functions
 def button_pressed()->None:
@@ -90,7 +91,7 @@ if st.session_state.button_pressed:
     with st.status(update_head, expanded=True) as status:
         client = OpenAI(api_key = open_ai_key)
         st.write(update1) 
-
+        
         #Retrieve Assistant: BaeGPT
         assistant = client.beta.assistants.retrieve(assistant_id=assistant_id)
     
@@ -115,10 +116,14 @@ if st.session_state.button_pressed:
         run = wait_on_run(run,thread)
 
         status.update(label="Complete!", state="complete", expanded=False)
+        
+        response = pretty_print(get_response(thread))
+        
+        save_to_google_sheets(user_message, response)
     
     spacing_at_bottom = 5
 
-    st.write(reply_head, pretty_print(get_response(thread)))
+    st.write(reply_head, response)
 
 add_vertical_space(spacing_at_bottom)
 
